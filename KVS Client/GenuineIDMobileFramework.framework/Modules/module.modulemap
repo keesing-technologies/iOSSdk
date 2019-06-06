@@ -1,0 +1,11 @@
+framework module GenuineIDMobileFramework {
+  umbrella header "GenuineIDMobileFramework.h"
+
+  export *
+  module * { export * }
+}
+
+module GenuineIDMobileFramework.Swift {
+    header "GenuineIDMobileFramework-Swift.h"
+    requires objc
+}

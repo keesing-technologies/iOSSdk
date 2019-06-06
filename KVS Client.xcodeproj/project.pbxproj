@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		119221EE22A90C5D0082296C /* GenuineIDMobileFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 119221ED22A90C5D0082296C /* GenuineIDMobileFramework.framework */; };
+		119221F022A90E850082296C /* GenuineIDMobileFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 119221ED22A90C5D0082296C /* GenuineIDMobileFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E83332E522A6765200D6CBB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83332E422A6765200D6CBB5 /* AppDelegate.swift */; };
 		E83332E722A6765200D6CBB5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83332E622A6765200D6CBB5 /* ViewController.swift */; };
 		E83332EA22A6765200D6CBB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E83332E822A6765200D6CBB5 /* Main.storyboard */; };
@@ -14,8 +16,6 @@
 		E83332EF22A6765700D6CBB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E83332ED22A6765700D6CBB5 /* LaunchScreen.storyboard */; };
 		E83332FA22A6765700D6CBB5 /* KVS_ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83332F922A6765700D6CBB5 /* KVS_ClientTests.swift */; };
 		E833330522A6765800D6CBB5 /* KVS_ClientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E833330422A6765800D6CBB5 /* KVS_ClientUITests.swift */; };
-		E8EC597522A68E040080576F /* GenuineIDMobileFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8EC597422A68E040080576F /* GenuineIDMobileFramework.framework */; };
-		E8EC597622A68F1B0080576F /* GenuineIDMobileFramework.framework in Resources */ = {isa = PBXBuildFile; fileRef = E8EC597422A68E040080576F /* GenuineIDMobileFramework.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +35,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		119221F122A90E850082296C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				119221F022A90E850082296C /* GenuineIDMobileFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		119221ED22A90C5D0082296C /* GenuineIDMobileFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GenuineIDMobileFramework.framework; sourceTree = "<group>"; };
 		E83332E122A6765200D6CBB5 /* KVS Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KVS Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E83332E422A6765200D6CBB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E83332E622A6765200D6CBB5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,7 +64,6 @@
 		E833330022A6765800D6CBB5 /* KVS ClientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KVS ClientUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E833330422A6765800D6CBB5 /* KVS_ClientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KVS_ClientUITests.swift; sourceTree = "<group>"; };
 		E833330622A6765800D6CBB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E8EC597422A68E040080576F /* GenuineIDMobileFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GenuineIDMobileFramework.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8EC597522A68E040080576F /* GenuineIDMobileFramework.framework in Frameworks */,
+				119221EE22A90C5D0082296C /* GenuineIDMobileFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,7 +99,6 @@
 				E83332F822A6765700D6CBB5 /* KVS ClientTests */,
 				E833330322A6765800D6CBB5 /* KVS ClientUITests */,
 				E83332E222A6765200D6CBB5 /* Products */,
-				E8EC597422A68E040080576F /* GenuineIDMobileFramework.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,6 +115,7 @@
 		E83332E322A6765200D6CBB5 /* KVS Client */ = {
 			isa = PBXGroup;
 			children = (
+				119221ED22A90C5D0082296C /* GenuineIDMobileFramework.framework */,
 				E83332E422A6765200D6CBB5 /* AppDelegate.swift */,
 				E83332E622A6765200D6CBB5 /* ViewController.swift */,
 				E83332E822A6765200D6CBB5 /* Main.storyboard */,
@@ -140,6 +154,7 @@
 				E83332DD22A6765200D6CBB5 /* Sources */,
 				E83332DE22A6765200D6CBB5 /* Frameworks */,
 				E83332DF22A6765200D6CBB5 /* Resources */,
+				119221F122A90E850082296C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -244,7 +259,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8EC597622A68F1B0080576F /* GenuineIDMobileFramework.framework in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +384,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;
@@ -427,7 +441,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -441,22 +455,28 @@
 		E833330A22A6765800D6CBB5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = arm64;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = D9HQD838UT;
+				DYLIB_INSTALL_NAME_BASE = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/KVS\\ Client",
+					"$(PROJECT_DIR)/KVS\\ Client",
 				);
 				INFOPLIST_FILE = "KVS Client/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
+					"@rpath",
 					"@executable_path/Frameworks",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "Keesing-Technologies.KVS-Client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = arm64;
 			};
@@ -465,21 +485,28 @@
 		E833330B22A6765800D6CBB5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = arm64;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = D9HQD838UT;
+				DYLIB_INSTALL_NAME_BASE = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/KVS\\ Client",
+					"$(PROJECT_DIR)/KVS\\ Client",
 				);
 				INFOPLIST_FILE = "KVS Client/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
+					"@rpath",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "Keesing-Technologies.KVS-Client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = arm64;
 			};

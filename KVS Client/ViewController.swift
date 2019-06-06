@@ -9,8 +9,24 @@
 import UIKit
 import GenuineIDMobileFramework
 
-class ViewController: GenuineIDBaseController {
+class ViewController: GenuineIDBaseController, URLSessionDelegate {
+    private let sendingLabel = UILabel();
+    
+    //Handler to accept self-signed certificates from devdocker01.ktech.local
+    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        if(challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust)
+        {
+            if(challenge.protectionSpace.host == "devdocker01.ktech.local")
+            {
+//                NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+//                completionHandler(NSURLSessionAuthChallengeUseCredential,credential);
+                let credential = URLCredential.init(trust: challenge.protectionSpace.serverTrust as SecTrust!)
+                completionHandler(URLSession.AuthChallengeDisposition.useCredential, credential)
 
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
@@ -34,25 +50,67 @@ class ViewController: GenuineIDBaseController {
         completeJsonPayload:String)
     {
         
-        // you can perform the upload of the payload to the JenID Solutions GmbH server here or in another UIViewController
+        self.showSending()
         
+        // you can perform the upload of the payload to the JenID Solutions GmbH server here or in another UIViewController
+        DispatchQueue.global(qos: .background).async {
+            //background code
+            self.sendData(jenIdPayload: completeJsonPayload)
+            
+            DispatchQueue.main.async {
+                self.hideSending()
+            }
+        }
+    }
+    
+    override open func doAfterFail(frontImage: UIImage, encodedFrontImage: String, backImage: UIImage, encodedBackImage: String, completeJsonPayload: String)
+    {
+        // you can do some handling here e.g. in case you allow an upload of the transaction without the facial image do it here
+        // or do display some user guidance how to capture a face successfully...
+        let alert = UIAlertController(title: "Fail", message: "Error detecting an ISO conform face and/or the performing of the liveness check", preferredStyle: UIAlertController.Style.alert)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+//    func convertPayload(innerPayload:String) -> Data?
+//    {
+//        do {
+//            if let innerJson = try JSONSerialization.jsonObject(with: Data(innerPayload.utf8), options: []) as? [String: Any]
+//            {
+//                return innerJson
+//            }
+//        } catch let error as NSError {
+//            print("Failed to load: \(error.localizedDescription)")
+//        }
+//
+//        return nil
+//    }
+    
+    func sendData(jenIdPayload:String)
+    {
         if let url = NSURL(string: "https://devdocker01.ktech.local:8889/sdkapi")
         {
             var request = URLRequest(url: url as URL)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             
-            request.httpBody = postString.data(completeJsonPayload)
+            
+            let data = jenIdPayload.data(using: .utf8) as! Data
+            let jsonObj = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary
+            
+            let jsonData = try? JSONSerialization.data(withJSONObject: jsonObj)
+            request.httpBody = jsonData
             request.timeoutInterval = 40
             
             // create session
-            let config = URLSessionConfiguration.ephemeral
-            let session = URLSession( configuration: config )
+            let config = URLSessionConfiguration.default
+            let session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
             
             let task = session.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
                 if error != nil
                 {
                     debugPrint("upload file error: \(error!.localizedDescription): \(error!)")
+                    self.showMessage(title: "Error", message: error!.localizedDescription)
                 }
                 else if data != nil
                 {
@@ -61,10 +119,16 @@ class ViewController: GenuineIDBaseController {
                         debugPrint("upload file received data:\n\(str)")
                         debugPrint((response as! HTTPURLResponse).statusCode)
                         
-                        if ((response as HTTPURLResponse).statusCode == 201)
+                        if ((response as! HTTPURLResponse).statusCode == 200)
                         {
                             // aknowledge user ...
+                            self.showMessage(title: "Success", message: "Data has been sent")
                         }
+                        else
+                        {
+                            self.showMessage(title: "Error", message: "Status != 200")
+                        }
+                        
                     }
                 }
             })
@@ -77,18 +141,34 @@ class ViewController: GenuineIDBaseController {
         }
     }
     
-    override open func doAfterFail(
-        frontImage:UIImage,
-        encodedFrontImage:String,
-        backImage backImage:UIImage,
-        encodedBackImage encodedBackImage:String,
-        completeJsonPayload:String)
+    
+    func showSending()
     {
-        // you can do some handling here e.g. in case you allow an upload of the transaction without the facial image do it here
-        // or do display some user guidance how to capture a face successfully...
+        if (sendingLabel == nil)
+        {
+            let view = self.view as UIView
+            sendingLabel.frame = CGRect(x: 0, y: view.center.y, width: view.frame.width, height: 50)
+            sendingLabel.backgroundColor = .black
+            sendingLabel.textColor = .white
+            sendingLabel.text = "Sending..."
+        }
+        
+        self.view.addSubview(sendingLabel)
     }
-
-
+    
+    func hideSending()
+    {
+        sendingLabel.removeFromSuperview()
+    }
+    
+    func showMessage(title: String, message:String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
 }
 
 
