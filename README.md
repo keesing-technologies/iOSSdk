@@ -1,12 +1,18 @@
-**iOS SDK Intergation with KVS**
+**iOS SDK Integration with KVS**
 
 List of Contents
 
 - [System Requirements](#System-Requirements)
 - [Access Rights](#Access-Rights)
 - [Base Controller](#Base-Controller)
-- [SDK](#SDK) - [Integration](#Integration) - [Using the class](#Using-the-class) - [Configuration](#Configuration) - [Code Example](#Code-Example)
-- [Sending the Payload to Genuine-ID HUB Server](#Sending-the-Payload-to-Genuine-ID-HUB-Server) - [Send Data](#Send-Data) - [Retrieve Data](#Retrieve-Data)
+- [SDK](#SDK) 
+- [Integration](#Integration)
+- [Using the class](#Using-the-class)
+- [Configuration](#Configuration)
+- [Code Example](#Code-Example)
+- [Sending the Payload to Genuine-ID HUB Server](#Sending-the-Payload-to-Genuine-ID-HUB-Server)
+- [Send Data](#Send-Data)
+- [Retrieve Data](#Retrieve-Data)
 - [UI Customization](#UI-Customization)
 
 The Genuine-ID Capture SDK provides functionality to integrate ID document and facial capture functionality
@@ -39,9 +45,9 @@ The steps to be taken by the end-user are:
 Note: the selection of the document type is critical for correctly detecting the right document
 proportions in an image. It does make a difference to search for a _TD1_ or _TD3_ document.
 
-The capturing process consists of two sub steps. First the user takes an image, wether
+The capturing process consists of two sub steps. First the user takes an image, whether
 automatically or manually (after the automatic process took too long). Second the user reviews
-the found document and is able to correct it if needed. The better the cropping result, the better
+the found document and can correct it if needed. The better the cropping result, the better
 the verification of the document will perform.
 
 Also note, that the last two steps are optional. It is possible to configure the _UIViewController_ to
@@ -82,7 +88,7 @@ configured to do so - an ISO conform face image could be made and verified by a 
 
 The second callback will be called when the process of detecting an ISO conform face and/or the
 performing of the liveness check failed. This will happen for example when the end user does not
-keep his face in the sscreen, or it is not possible to get an ISO conform image of his face. The
+keep his face in the screen, or it is not possible to get an ISO conform image of his face. The
 end user can try three times. After that, the _doAfterFail_ callback will be called.
 
 Since both callbacks are abstract methods, they have to be implemented by the integrating
@@ -91,7 +97,7 @@ presenting the found document and the face image to the end suer and starting ne
 and so on.
 
 In either way the instance will provide you the images in different formats
-and the compiled JSON formated payload to be send to the Server.
+and the compiled JSON formatted payload to be send to the Server.
 
 The callbacks will have the following parameters:
 
@@ -176,7 +182,7 @@ The following code snippet demonstrate how to use the _GenuineIDBaseController_ 
         ...
     }
 
-**Note:** Plase note, that if the end user captures a _TD3_ document (passport), only one page will be
+**Note:** Please note, that if the end user captures a _TD3_ document (passport), only one page will be
 captured. Therefore, _backImage_ and _encodedBackImage_ will be empty. If the face detection
 functionality is disabled, _faceImage_ and _encodedFaceImage_ will be empty too.
 
@@ -253,7 +259,7 @@ resource of the Genuine-ID HUB Server.
 
 ### Retrieve Data
 
-The server supports asynchronousness and synchrounousness (legacy!!) calls. We recommend to use asynchrounous calls only.
+The server supports both sync/asyn calls. We recommend using asynchronous calls only.
 
 To retrieve results, perform a GET request with the received id as a result of the upload process.
 If the "status" in the resulting JSON is different than "128" (FINISHED see REST API documentation), the processing on
@@ -312,11 +318,11 @@ UI customization is possible via various methods available is the main activity,
 - **setPrimaryColor**: sets the primary color which is suitable to set the enterprice color code.
 - **setFontColor1**: sets one of the two font color of the capturing UI pages.
 - **setFontColor2**: same as `setFontColor1`.
-- **setTextFont**: sets the primary font of all textes available in the capturing process pages.
+- **setTextFont**: sets the primary font of all texts available in the capturing process pages.
 - **setSecondaryTextFont**: sets the fonts of pages after main page.
-- **setCorrectionColor**: sets the color of the rectangle shown druring the manual capturing (when automatic capturing fails).
+- **setCorrectionColor**: sets the color of the rectangle shown during the manual capturing (when automatic capturing fails).
 - **setFaceColor1**: sets the color of an indicator over the face during liveness check.
 - **setFaceColor2**: sets the color of an indicator over the face when face detection succeeds.
-- **setFaceTrackColor**: sets the color of square arround the face during the liveness check.
+- **setFaceTrackColor**: sets the color of square around the face during the liveness check.
 - **setFaceFeatureColor**: sets the color of the squares around face features (eyes/mouth) during liveness check.
 - **setWarnColor**: sets the warning color while process failed during capturing or liveness check process.
