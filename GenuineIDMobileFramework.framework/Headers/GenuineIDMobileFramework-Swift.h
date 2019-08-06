@@ -239,6 +239,14 @@ SWIFT_CLASS("_TtC24GenuineIDMobileFramework27GenuineIDBaseFaceController")
 
 
 
+
+
+
+
+
+@interface UIView (SWIFT_EXTENSION(GenuineIDMobileFramework)) <UIGestureRecognizerDelegate>
+@end
+
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
 #endif
