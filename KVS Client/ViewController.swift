@@ -11,12 +11,13 @@ import GenuineIDMobileFramework
 
 class ViewController: GenuineIDBaseController, URLSessionDelegate {
     private let sendingLabel = UILabel();
+    private let serverUrl = "accdocker01.ktech.local"
     
     //Handler to accept self-signed certificates from devdocker01.ktech.local
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         if(challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust)
         {
-            if(challenge.protectionSpace.host == "devdocker01.ktech.local")
+            if(challenge.protectionSpace.host == serverUrl)
             {
 //                NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
 //                completionHandler(NSURLSessionAuthChallengeUseCredential,credential);
@@ -79,10 +80,8 @@ class ViewController: GenuineIDBaseController, URLSessionDelegate {
 
 //            self.navigationController?.popToRootViewController(animated: false)
 //            self.navigationController?.pushViewController(ViewController(), animated: true)
-        }
-        
-        DispatchQueue.main.async {
-            self.navigationController?.popViewController(animated: true)
+            
+//            self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -102,7 +101,7 @@ class ViewController: GenuineIDBaseController, URLSessionDelegate {
     
     func sendData(jenIdPayload:String)
     {
-        if let url = NSURL(string: "https://accdocker01.ktech.local:8889/sdkapi")
+        if let url = NSURL(string: "https://\(serverUrl):8889/sdkapi")
         {
             var request = URLRequest(url: url as URL)
             request.httpMethod = "POST"
