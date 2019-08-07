@@ -67,9 +67,23 @@ class ViewController: GenuineIDBaseController, URLSessionDelegate {
     {
         // you can do some handling here e.g. in case you allow an upload of the transaction without the facial image do it here
         // or do display some user guidance how to capture a face successfully...
-        let alert = UIAlertController(title: "Fail", message: "Error detecting an ISO conform face and/or the performing of the liveness check", preferredStyle: UIAlertController.Style.alert)
+//        let alert = UIAlertController(title: "Fail", message: "Error detecting an ISO conform face and/or the performing of the liveness check", preferredStyle: UIAlertController.Style.alert)
         
-        self.present(alert, animated: true, completion: nil)
+//        self.present(alert, animated: true, completion: nil)
+        debugPrint("doAfterFail")
+        
+        DispatchQueue.main.async {
+//            self.navigationController?.popToRootViewController(animated: true)
+            
+//            self.dismiss(animated: true, completion: nil)
+
+//            self.navigationController?.popToRootViewController(animated: false)
+//            self.navigationController?.pushViewController(ViewController(), animated: true)
+        }
+        
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
 //    func convertPayload(innerPayload:String) -> Data?
@@ -88,7 +102,7 @@ class ViewController: GenuineIDBaseController, URLSessionDelegate {
     
     func sendData(jenIdPayload:String)
     {
-        if let url = NSURL(string: "https://devdocker01.ktech.local:8889/sdkapi")
+        if let url = NSURL(string: "https://accdocker01.ktech.local:8889/sdkapi")
         {
             var request = URLRequest(url: url as URL)
             request.httpMethod = "POST"
@@ -144,13 +158,14 @@ class ViewController: GenuineIDBaseController, URLSessionDelegate {
     
     func showSending()
     {
-        if (sendingLabel == nil)
+        if (sendingLabel.tag != 999)
         {
             let view = self.view as UIView
             sendingLabel.frame = CGRect(x: 0, y: view.center.y, width: view.frame.width, height: 50)
             sendingLabel.backgroundColor = .black
             sendingLabel.textColor = .white
             sendingLabel.text = "Sending..."
+            sendingLabel.tag = 999
         }
         
         self.view.addSubview(sendingLabel)
