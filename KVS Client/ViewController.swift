@@ -19,8 +19,6 @@ class ViewController: GenuineIDBaseController, URLSessionDelegate {
         {
             if(challenge.protectionSpace.host == serverUrl)
             {
-//                NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
-//                completionHandler(NSURLSessionAuthChallengeUseCredential,credential);
                 let credential = URLCredential.init(trust: challenge.protectionSpace.serverTrust as SecTrust!)
                 completionHandler(URLSession.AuthChallengeDisposition.useCredential, credential)
 
@@ -66,38 +64,11 @@ class ViewController: GenuineIDBaseController, URLSessionDelegate {
     
     override open func doAfterFail(frontImage: UIImage, encodedFrontImage: String, backImage: UIImage, encodedBackImage: String, completeJsonPayload: String)
     {
-        // you can do some handling here e.g. in case you allow an upload of the transaction without the facial image do it here
-        // or do display some user guidance how to capture a face successfully...
-//        let alert = UIAlertController(title: "Fail", message: "Error detecting an ISO conform face and/or the performing of the liveness check", preferredStyle: UIAlertController.Style.alert)
-        
-//        self.present(alert, animated: true, completion: nil)
-        debugPrint("doAfterFail")
-        
-        DispatchQueue.main.async {
-//            self.navigationController?.popToRootViewController(animated: true)
-            
-//            self.dismiss(animated: true, completion: nil)
+       
+        debugPrint("doAfterFail")        
+       
+    }  
 
-//            self.navigationController?.popToRootViewController(animated: false)
-//            self.navigationController?.pushViewController(ViewController(), animated: true)
-            
-//            self.navigationController?.popViewController(animated: true)
-        }
-    }
-    
-//    func convertPayload(innerPayload:String) -> Data?
-//    {
-//        do {
-//            if let innerJson = try JSONSerialization.jsonObject(with: Data(innerPayload.utf8), options: []) as? [String: Any]
-//            {
-//                return innerJson
-//            }
-//        } catch let error as NSError {
-//            print("Failed to load: \(error.localizedDescription)")
-//        }
-//
-//        return nil
-//    }
     
     func sendData(jenIdPayload:String)
     {
