@@ -149,9 +149,19 @@ class ViewController: GenuineIDBaseController, URLSessionDelegate {
     func showMessage(title: String, message:String)
     {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: goHome))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func goHome(alert: UIAlertAction!)
+    {
+        DispatchQueue.main.async {
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyBoard.instantiateViewController(withIdentifier: "HomeScreen") as! ViewController
+            self.navigationController!.pushViewController(vc, animated: false)
+        }
+    }
+
     
     
 }
