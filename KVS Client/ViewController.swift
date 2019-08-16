@@ -65,7 +65,8 @@ class ViewController: GenuineIDBaseController, URLSessionDelegate {
     override open func doAfterFail(frontImage: UIImage, encodedFrontImage: String, backImage: UIImage, encodedBackImage: String, completeJsonPayload: String)
     {
        
-        debugPrint("doAfterFail")        
+        debugPrint("doAfterFail");
+		self.showMessage(title: "Error", message: "Please repeat the process again.");
        
     }  
 
