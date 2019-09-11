@@ -11,8 +11,6 @@ List of Contents
 - [Configuration](#Configuration)
 - [Code Example](#Code-Example)
 - [Sending the Payload to Genuine-ID HUB Server](#Sending-the-Payload-to-Genuine-ID-HUB-Server)
-- [Send Data](#Send-Data)
-- [Retrieve Data](#Retrieve-Data)
 - [UI Customization](#UI-Customization)
 
 The Genuine-ID Capture SDK provides functionality to integrate ID document and facial capture functionality
