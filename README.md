@@ -32,7 +32,7 @@ The SDK needs demands access to cameras. The user has to grant these rights othe
 
 This _UIViewController_ leads the end-user through the process of detecting id-documents, detecting
 ISO conform faces and proceeding a liveness check. As a result there will be cropped images of
-the id-documents pages, as well as valid _JSON_ data to be send to the _JenID Solutions GmbH server_
+the id-documents pages, as well as valid _JSON_ data to be send to the verification server
 for further processing, extracting of data and verification.
 
 The steps to be taken by the end-user are:
@@ -111,8 +111,7 @@ The callbacks will have the following parameters:
 
 The resulting images of the pages of the document com in both, a _UIImage_
 and a Base64 _String_ representation. The former could be used for your individual processing
-or showing to the end user. The Base64 _String_ is optimized for uploading to the _JenID Solutions
-CLOUD_ in order to process the document.
+or showing to the end user. The Base64 _String_ is optimized for uploading to the verification server order to process the document.
 
 **Note:** The images are already compressed please DO NOT further compress the images
 since this will have negative impact on the performance of the Genuine-ID verification engine.
@@ -165,7 +164,7 @@ The following code snippet demonstrate how to use the _GenuineIDBaseController_ 
             completeJsonPayload:String)
         {
 
-            // you can perform the upload of the payload to the JenID Solutions GmbH server here or in another UIViewController
+            // you can perform the upload of the payload to the verification server here or in another UIViewController
         }
 
         override open func doAfterFail(
@@ -195,120 +194,6 @@ detected document, if the photo being taken allows that.
 
 In this section, you will find information on how to upload the result payload to the server.
 The server implements a REST API interface to support stateless (WEB) application design.
-
-### Send Data
-
-Sending data to the server requires several steps. To get more information please check
-our REST API documentation on https://checkid.online. Please use your demo credentials to log-in to get access.
-
-In the following we provide you only with a brief Swift code snippet about how to do it from your App in principle.
-Once you have the payload available from the SDK, you can send this to the Server by using the REST INSPECTIONJOB CREATE
-resource of the Genuine-ID HUB Server.
-
-    let json = "..." // your payload
-
-    if let url = NSURL(string: "https://www.checkid.online/inspectionjob/create")
-    {
-    	// generate basic auth string
-    	let userPasswordString = "\( ... ):\( ... )" // username:password
-    	let userPasswordData = userPasswordString.data(using: String.Encoding.utf8)
-    	let base64EncodedCredential = userPasswordData?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
-    	let authString = "Baseic \(base64EncodedCredential!)"
-
-    	// set additional headers
-    	let config = URLSessionConfiguration.ephemeral
-    	config.httpAdditionalHeaders = ["Authorization" : authString]
-
-    	var request = URLRequest(url: url as URL)
-    	request.httpMethod = "POST"
-    	request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    	let postString = data
-
-    	request.httpBody = postString.data(using:  .utf8)
-    	request.timeoutInterval = 40
-
-    	// create session
-    	let session = URLSession( configuration: config )
-
-    	let task = session.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
-    		if error != nil
-    		{
-    			debugPrint("upload file error: \(error!.localizedDescription): \(error!)")
-    		}
-    		else if data != nil
-    		{
-    			if let str = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-    			{
-    				debugPrint("upload file received data:\n\(str)")
-    				debugPrint((response as! HTTPURLResponse).statusCode)
-
-    				if ((response as ! HTTPURLResponse).statusCode == 201)
-    				{
-    					...
-    				}
-    			}
-    		}
-    	})
-
-    	task.resume()
-    }
-    else
-    {
-    	debugPrint("Unable to create NSURL")
-    }
-
-### Retrieve Data
-
-The server supports both sync/asyn calls. We recommend using asynchronous calls only.
-
-To retrieve results, perform a GET request with the received id as a result of the upload process.
-If the "status" in the resulting JSON is different than "128" (FINISHED see REST API documentation), the processing on
-the server isn't done yet (asynchronous process); please request again until the "status" is "128" (FINISHED). Then
-you will have the final results. In all other states the results are not valid.
-
-    if let url = NSURL(string: "https://www.checkid.online/inspectionjob/\(id)")
-    {
-    	// generate basic auth string
-    	let userPasswordString = "\( ... ):\( ... )" // username:password
-    	let userPasswordData = userPasswordString.data(using: String.Encoding.utf8)
-    	let base64EncodedCredential = userPasswordData?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
-    	let authString = "Baseic \(base64EncodedCredential!)"
-
-    	// set additional headers
-    	let config = URLSessionConfiguration.ephemeral
-    	config.httpAdditionalHeaders = ["Authorization" : authString]
-
-    	let session = URLSession( configuration: config )
-
-    	let task = session.dataTask(with: url as URL, completionHandler: { (data, response, error) -> Void in
-    		if error != nil
-    		{
-    			print("error \(error!.localizedDescription): \(error!)")
-    		}
-    		else if data != nil
-    		{
-    			if let str = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-    			{
-    				let json = try? JSONSerialization.jsonObject(with: data!) as! [String:AnyObject]
-
-    				if (String(describing: json!["status"]!) == "128")
-    				{
-    					...
-    				}
-    				else
-    				{
-    					...
-    				}
-    			}
-    		}
-    	})
-
-    	task.resume()
-    }
-    else
-    {
-    	print("Unable to create NSURL")
-    }
 
 # UI Customization
 
